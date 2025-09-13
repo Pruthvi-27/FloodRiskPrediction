@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flood Risk Prediction</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='flood.jpg') }}"); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.6); /* semi-transparent black overlay */
+            padding: 30px;
+            margin: 50px auto;
+            width: 400px;
+            border-radius: 10px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        h2, h3 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Flood Risk Prediction</h2>
+        <form action="/predict" method="post">
+            <input type="text" name="Latitude" placeholder="Latitude" required>
+            <input type="text" name="Longitude" placeholder="Longitude" required>
+            <input type="text" name="Rainfall (mm)" placeholder="Rainfall (mm)" required>
+            <input type="text" name="Temperature (°C)" placeholder="Temperature (°C)" required>
+            <input type="text" name="Humidity (%)" placeholder="Humidity (%)" required>
+            <input type="text" name="River Discharge (m³/s)" placeholder="River Discharge" required>
+            <input type="text" name="Water Level (m)" placeholder="Water Level" required>
+            <input type="text" name="Elevation (m)" placeholder="Elevation" required>
+            <select name="Land Cover" required>
+                <option value="">Select Land Cover</option>
+                <option value="Urban">Urban</option>
+                <option value="Forest">Forest</option>
+                <option value="Agriculture">Agriculture</option>
+                <option value="Water">Water</option>
+            </select>
+            <select name="Soil Type" required>
+                <option value="">Select Soil Type</option>
+                <option value="Sandy">Sandy</option>
+                <option value="Clay">Clay</option>
+                <option value="Loamy">Loamy</option>
+                <option value="Silty">Silty</option>
+            </select>
+            <input type="text" name="Population Density" placeholder="Population Density" required>
+            <select name="Infrastructure" required>
+                <option value="">Select Infrastructure</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+            <input type="text" name="Historical Floods" placeholder="Historical Floods" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction_text %}
+            <h3>{{ prediction_text }}</h3>
+        {% endif %}
+    </div>
+</body>
+</html>
